@@ -1,0 +1,32 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+  <div id='handlebars'>
+    <h1>Certificado de Conclusão de Curso</h1>
+    <h2>{{nomeCurso}}</h2>
+    <h3>{{nome}}</h3>
+    <h4>{{data}}</h4>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+  <script>
+    let script = document.querySelector('#handlebars').innerHTML;
+    var template = Handlebars.compile(script);
+    document.body.innerHTML = template({
+      nomeCurso: "Desenvolvimento Web",
+      nome: "Fabiano",
+      data: '26/10/2020'
+    }
+    );
+  </script>
+</body>
+
+</html>
