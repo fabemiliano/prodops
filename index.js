@@ -15,7 +15,6 @@ const createPdf = async (template) => {
     format: 'A4'
   }
 
-
   await page.goto(template)
   await page.pdf(options)
 
