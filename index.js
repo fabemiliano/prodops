@@ -5,7 +5,9 @@ const bodyParser = require('body-parser')
 const puppeteer = require('puppeteer')
 require('dotenv').config();
 
-app.use(bodyParser.json())
+var Handlebars = require('handlebars');
+
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const createPdf = async (template) => {
   const browser = await puppeteer.launch()
@@ -14,23 +16,53 @@ const createPdf = async (template) => {
     path: `${__dirname}/certificate.pdf`,
     format: 'A4'
   }
-
   await page.goto(template)
   await page.pdf(options)
-
+  page.close()
 }
 
-app.get('/', async (req, res, next) => {
-  res.json({ teste: 'teste' })
+app.get('/home', async (req, res, next) => {
+  res.sendFile(`${__dirname}/form.html`)
 })
+
+let name;
+let date;
+let course;
+
+app.post('/home', (req, res) => {
+  const { nome, data, nomeCurso } = req.body
+  name = nome;
+  date = data;
+  course = nomeCurso;
+  res.redirect('/certificate');
+})
+
 
 app.get('/certificate', async (req, res, next) => {
-  const { template, details: { nome, data, nomeCurso } } = req.body
-  await createPdf(template);
+  const source = `<h1>Certificado de Conclusão de Curso</h1>
+                    <h2>{{course}}</h2>
+                    <h3>{{name}}</h3>
+                    <h4>{{date}}</h4>`;
+  const template = Handlebars.compile(source);
+
+  const data =
+  {
+    name,
+    date,
+    course,
+  };
+  const result = template(data);
+
+  res.send(result)
+
+  await createPdf('http://localhost:3000/certificate');
   res.contentType("application/pdf");
   res.sendFile(path.join(__dirname, '/certificate.pdf'));
+  res.end();
 })
 
+
 const { PORT } = process.env
+
 
 app.listen(PORT, () => console.log(`escutando na porta ${PORT}`))

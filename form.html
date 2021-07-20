@@ -1,0 +1,38 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./index.css">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #dfdfdf;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Gerador de Certificados</h1>
+  <form action="/home" method="POST">
+    <label for="nomeCurso">Digite o nome do curso<input id="nomeCurso" name="nomeCurso" /></label>
+    <label for="nome">Digite o nome do aluno<input id="nome" name="nome"/></label>
+    <label for="nome">Digite a data do curso<input id="data" name="data"/></label>
+    <button type="submit">Enviar</button>
+  </form>
+</body>
+
+</html>
