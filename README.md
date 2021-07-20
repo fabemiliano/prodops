@@ -11,3 +11,5 @@ payload: {
   data: '', 
   nomeCurso: '',
 }
+
+A branch 'rendering-html-with-node' contém uma renderização do html direto pelo express.
